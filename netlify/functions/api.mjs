@@ -38,7 +38,7 @@ function isAdmin(event) {
 }
 const cookieHeaders = (value) => ({'Set-Cookie': value});
 function requireAdmin(event) { if (!isAdmin(event)) return json(401, {error:'Please sign in to the admin dashboard.'}); return null; }
-export default async (event) => {
+export const handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return {statusCode:204, headers:{...headers,'Access-Control-Allow-Methods':'GET,POST,PATCH,OPTIONS','Access-Control-Allow-Headers':'Content-Type'},body:''};
   const action = event.queryStringParameters?.action || '';
   let input={}; try { input = event.body ? JSON.parse(event.body) : {}; } catch { return json(400,{error:'Invalid JSON body.'}); }
